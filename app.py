@@ -2,21 +2,24 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# Show login form
 @app.route('/')
-def login():
+def home():
     return render_template('login.html')
 
-# Handle form submission
-@app.route('/login', methods=['POST'])
-def handle_login():
-    username = request.form['username']
-    password = request.form['password']
+@app.route('/predict', methods=['POST'])
+def predict():
+    hours = float(request.form['hours'])
+    attendance = float(request.form['attendance'])
 
-    if username == "admin" and password == "1234":
-        return "Login Successful ✅"
+    # Simple fake logic (you can improve later with ML)
+    if hours >= 5 and attendance >= 75:
+        result = "Excellent performance ⭐"
+    elif hours >= 3:
+        result = "Average performance 🙂"
     else:
-        return "Invalid Credentials ❌"
+        result = "Needs improvement ⚠️"
+
+    return render_template('form.html', prediction=result)
 
 if __name__ == "__main__":
     app.run(debug=True)

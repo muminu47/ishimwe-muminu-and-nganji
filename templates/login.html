@@ -1,84 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Performance Predictor</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #000000, #8B0000);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #0f3d2e, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        .login-box {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            text-align: center;
-        }
+    .card {
+        background: white;
+        padding: 30px;
+        width: 360px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        text-align: center;
+        border-top: 6px solid #1b8a5a;
+    }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #8b4f00;
-        }
+    h2 {
+        color: #1b8a5a;
+        margin-bottom: 20px;
+    }
 
-        label {
-            display: block;
-            text-align: left;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    input:focus {
+        border-color: #1b8a5a;
+        outline: none;
+        box-shadow: 0 0 5px rgba(27, 138, 90, 0.5);
+    }
 
-        input:focus {
-            border-color: #8B0000;
-            outline: none;
-        }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #1b8a5a;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #8B0000;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    button:hover {
+        background: #146c46;
+    }
 
-        button:hover {
-            background: #a30000;
-        }
-    </style>
-
+    .result {
+        margin-top: 15px;
+        font-weight: bold;
+        color: #1b8a5a;
+    }
+</style>
 </head>
+
 <body>
 
-    <div class="login-box">
-        <h2>Login Form</h2>
+    <div class="card">
+        <h2>Student Predictor</h2>
 
-        <form action="/login" method="POST">
-            <label>Username:</label>
-            <input type="text" name="username" required>
+        <form action="/predict" method="POST">
+            <input type="number" name="hours" placeholder="Learning Hours" required>
+            <input type="number" name="attendance" placeholder="Attendance (%)" required>
 
-            <label>Password:</label>
-            <input type="password" name="password" required>
-
-            <button type="submit">Login</button>
+            <button type="submit">Predict</button>
         </form>
+
+        {% if prediction %}
+            <div class="result">
+                Result: {{ prediction }}
+            </div>
+        {% endif %}
     </div>
 
 </body>
